@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Cliente;
 
 class ClientesController extends Controller
 {
@@ -13,7 +14,8 @@ class ClientesController extends Controller
      */
     public function index()
     {
-        //
+        $data['clientes'] = cliente::orderBy('id','desc');
+        return view('clientes.list', $data);
     }
 
     /**

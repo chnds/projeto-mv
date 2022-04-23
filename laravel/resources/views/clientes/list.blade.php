@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Listagem de produtos</title>
+    <title>Listagem de clientes</title>
     
     <link rel="stylesheet" href="{{asset('site/style.css')}}">
 </head>
@@ -33,11 +33,11 @@
         </tr>
       </thead>
       <tbody>
-        @foreach ($produtos as $produto)
+        @foreach ($clientes as $cliente)
         <tr>
-          <th scope="row">{{$produto->id}}</th>
-          <td>$produto->descricao</td>
-          <td>$produto->valor</td>
+          <th scope="row">{{$cliente->id}}</th>
+          <td>$cliente->descricao</td>
+          <td>$cliente->valor</td>
         </tr>
         @endforeach
       </tbody>

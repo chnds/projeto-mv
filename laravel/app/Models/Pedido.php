@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pedidos extends Model
+class Pedido extends Model
 {
     protected $fillable = ['cliente','produto','numero','quantidade'];
 }

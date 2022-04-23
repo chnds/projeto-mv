@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Pedido;
 class PedidosController extends Controller
 {
     /**
@@ -13,7 +13,8 @@ class PedidosController extends Controller
      */
     public function index()
     {
-        //
+        $data['pedidos'] = pedido::orderBy('id','desc');
+        return view('pedidos.list', $data);
     }
 
     /**
