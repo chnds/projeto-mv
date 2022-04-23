@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-
 class ProdutoSeeder extends Seeder
 {
     /**
@@ -14,8 +13,8 @@ class ProdutoSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('clientes')->insert([
-            'descricao' => 'Carlos Pereira',
+        DB::table('produtos')->insert([
+            'descricao' => 'Ração para filhotes da raça lhasa',
             'valor' => 40.00,
         ]);
     }

@@ -15,7 +15,7 @@ class PedidoSeeder extends Seeder
     public function run()
     {
         DB::table('pedidos')->insert([
-            'cliete' => 'Carlos Pereira',
+            'cliente' => 'Carlos Pereira',
             'produto' => 'Ração p/ filhote',
             'numero' => 1,
             'quantidade' => 2,

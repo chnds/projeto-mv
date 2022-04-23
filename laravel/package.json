@@ -26,6 +26,7 @@
         "tailwindcss": "^3.0.18"
     },
     "dependencies": {
+        "bootstrap-icons": "^1.8.1",
         "jquery": "^3.6.0"
     }
 }

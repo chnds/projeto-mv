@@ -39,7 +39,8 @@
           <th scope="row">{{$pedido->id}}</th>
           <td>$pedido->descricao</td>
           <td>$pedido->valor</td>
-          <td></td>
+          <td><i class="bi bi-trash"></i>
+          </td>
         </tr>
         @endforeach
       </tbody>
