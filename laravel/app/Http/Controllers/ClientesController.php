@@ -14,7 +14,7 @@ class ClientesController extends Controller
      */
     public function index()
     {
-        $data['clientes'] = cliente::orderBy('id','desc');
+        $data['clientes'] = cliente::orderBy('id', 'desc')->paginate(5);
         return view('clientes.list', $data);
     }
 
@@ -25,7 +25,7 @@ class ClientesController extends Controller
      */
     public function create()
     {
-        //
+        return view('clientes.create');
     }
 
     /**

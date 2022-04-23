@@ -13,7 +13,7 @@ class PedidosController extends Controller
      */
     public function index()
     {
-        $data['pedidos'] = pedido::orderBy('id','desc');
+        $data['pedidos'] = pedido::orderBy('id','desc')->paginate(5);
         return view('pedidos.list', $data);
     }
 

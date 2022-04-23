@@ -14,7 +14,7 @@ class ProdutosController extends Controller
      */
     public function index()
     {
-        $data['produtos'] = produto::orderBy('id','desc');
+        $data['produtos'] = produto::orderBy('id','desc')->paginate(5);
         return view('produtos.list', $data);
     }
 

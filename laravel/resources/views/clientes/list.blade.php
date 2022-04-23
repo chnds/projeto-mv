@@ -19,7 +19,7 @@
         <li class="page-item"><a class="page-link" href="{{route('produtos.index')}}">Produtos</a></li>
         <li class="page-item"><a class="page-link" href="{{route('pedidos.index')}}">Pedidos</a></li>
         <li class="page-item">
-          <a class="page-link" href="#">Next</a>
+          <a class="page-link" href="{{route('produtos.index')}}">Next</a>
         </li>
       </ul>
     </nav>
@@ -27,21 +27,31 @@
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">id</th>
-          <th scope="col">Descrição</th>
-          <th scope="col">Valor Unitário</th>
+          <th scope="col">Nome</th>
+          <th scope="col">CPF</th>
+          <th scope="col">E-mail</th>
+          <th scope="col">Ações</th>
         </tr>
       </thead>
       <tbody>
         @foreach ($clientes as $cliente)
         <tr>
-          <th scope="row">{{$cliente->id}}</th>
-          <td>$cliente->descricao</td>
-          <td>$cliente->valor</td>
+          <td>{{$cliente->nome}}</td>
+          <td>{{$cliente->cpf}}</td>
+          <td>{{$cliente->email}}</td>
+          <td>
+            <form action="{{ route('clientes.destroy',$cliente->id) }}" method="POST">
+            <a class="btn btn-primary" href="{{ route('clientes.edit',$cliente->id) }}">Editar</a>
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger">Deletar</button>
+            </form>
+          </td>
         </tr>
         @endforeach
       </tbody>
     </table>
+    <a class="btn btn-success" href="{{route('clientes.create')}}">Cadastrar</a>
   </div>   
     <script src="{{asset('site/jquery.js')}}"></script>
     <script src="{{asset('site/bootstrap.js')}}"></script>

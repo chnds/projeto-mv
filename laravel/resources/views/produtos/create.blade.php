@@ -1,27 +1,39 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Produtos') }}
-        </h2>
-        
-    </x-slot>
+<!DOCTYPE html>
+<html lang="en">
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    <form action="{{route('registrar_produto')}}" method="POST">
-                        @csrf
-                        <label for="">Descrição</label></br>
-                        <input type="text" name="descricao"></br>
-                
-                        <label for="">Valor</label></br>
-                        <input type="text" name="valor"></br>
-                
-                        <button>Salvar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Listagem de clientes</title>
+
+    <link rel="stylesheet" href="{{ asset('site/style.css') }}">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="{{ route('clientes.create') }}">Cadastrar
+                        clientes</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="{{ route('produtos.create') }}">Cadastrar
+                        produtos</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="{{ route('pedidos.create') }}">Cadastrar
+                        pedidos</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="{{ route('produtos.create') }}">Next</a>
+                </li>
+            </ul>
+        </nav>
+
     </div>
-</x-app-layout>
+    <script src="{{ asset('site/jquery.js') }}"></script>
+    <script src="{{ asset('site/bootstrap.js') }}"></script>
+</body>
+
+</html>
