@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pedido;
+use App\Models\cliente;
+
 class PedidosController extends Controller
 {
     /**
@@ -13,7 +15,11 @@ class PedidosController extends Controller
      */
     public function index()
     {
-        $data['pedidos'] = pedido::orderBy('id','desc')->paginate(5);
+        $data['clientes'] = cliente::all();
+
+        $data['pedidos'] = pedido::join('clientes', 'clientes.id', '=', 'pedidos.cliente')
+              ->get(['pedidos.*','clientes.nome']);
+
         return view('pedidos.list', $data);
     }
 
@@ -35,7 +41,22 @@ class PedidosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'cliente' => 'required',
+            'produto' => 'required',
+            'numero' => 'required',
+            'quantidade' => 'required',
+        ]);
+
+        $pedido = new pedido;
+        $pedido->cliente = $request->cliente;
+        $pedido->produto = $request->produto;
+        $pedido->numero = $request->numero;
+        $pedido->status = 'Em andamento';
+        $pedido->quantidade = $request->quantidade;
+        $pedido->save();
+
+        return redirect()->route('pedidos.index')->with('msg','O pedido foi cadastrado com sucesso.');
     }
 
     /**

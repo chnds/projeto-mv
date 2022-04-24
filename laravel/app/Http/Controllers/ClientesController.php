@@ -36,7 +36,19 @@ class ClientesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nome' => 'required',
+            'email' => 'required',
+            'cpf' => 'required',
+        ]);
+
+        $cliente = new Cliente;
+        $cliente->nome = $request->nome;
+        $cliente->email = $request->email;
+        $cliente->cpf = $request->cpf;
+        $cliente->save();
+
+        return redirect()->route('clientes.index')->with('msg','O cliente foi cadastrado com sucesso.');
     }
 
     /**
@@ -58,7 +70,8 @@ class ClientesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $cliente = Cliente::find($id);
+        return view('clientes.edit', compact('cliente'));
     }
 
     /**
@@ -70,7 +83,23 @@ class ClientesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+       $request->validate([
+            'nome' => 'required',
+            'email' => 'required',
+            'cpf' => 'required',
+        ]);
+
+        $data = [
+            "nome"=>$request->nome,
+            "email"=>$request->email,
+            "cpf"=>$request->cpf,
+        ];
+
+        cliente::where('id', $id)->update($data);
+
+        return redirect()->route('clientes.index')
+        ->with('success','Cliente atualizado com sucesso');
     }
 
     /**
@@ -81,6 +110,7 @@ class ClientesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        cliente::destroy($id);
+        return redirect()->route('clientes.index')->with('msg','O cliente foi excluído com sucesso.');
     }
 }
