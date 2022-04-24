@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Listagem de pedidos</title>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('site/style.css') }}">
 </head>
 
@@ -28,7 +30,9 @@
                 </li>
             </ul>
         </nav>
-
+        <div class="p-2 text-center">
+            <h1 class="mb-3 center">Pedidos</h1>
+        </div>
         <table class="table">
             <thead>
                 <tr>
@@ -42,7 +46,9 @@
             <tbody>
                 @foreach ($pedidos as $pedido)
                     <tr>
-                        <td>{{ $pedido->nome }}</td>
+                        <td>{{ $pedido->nome }} <a class="btn"
+                                href="{{ route('clientes.show', $pedido->cliente) }}"><i
+                                    class="fas fa-info-circle fa-xs"></i></a></td>
                         <td>{{ $pedido->produto }}</td>
                         <td>{{ $pedido->numero }}</td>
                         <td>{{ $pedido->quantidade }}</td>
@@ -95,7 +101,7 @@
                                 <label for="formGroupExampleInput2">Número</label>
                                 <input type="text" class="form-control" id="formGroupExampleInput2" name="numero"
                                     placeholder="Digite o n° do pedido">
-                            </div><br/>
+                            </div><br />
                             <div class="form-group">
                                 <label for="formGroupExampleInput2">Quantidade</label>
                                 <input type="text" class="form-control" id="formGroupExampleInput2" name="quantidade"
@@ -120,6 +126,10 @@
         $(document).ready(function() {
             $(".cadastrar").click(function() {
                 $('#exampleModal').modal('show')
+            });
+
+            $(".btn_cliente").click(function() {
+                $('#exampleModal2').modal('show')
             });
 
             $(".close-modal").click(function() {

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Editar cliente</title>
+    <title>Listagem de clientes</title>
 
     <link rel="stylesheet" href="{{ asset('site/style.css') }}">
 </head>
@@ -28,40 +28,38 @@
                 </li>
             </ul>
         </nav>
-        <div class="container">
         <div class="p-2 text-center">
-            <h1 class="mb-3 center">Atualizar informações</h1>
+            <h1 class="mb-3 center">Mais informações</h1>
         </div>
-
-        <form action="{{ route('clientes.update', $produto->id) }}" method="POST">
-            @csrf
-            @method('PATCH')
-            <div class="form-group">
-                <label for="formGroupExampleInput">Nome</label>
-                <input type="text" class="form-control col-xs-4" id="formGroupExampleInput" name="nome"
-                    placeholder="Digite o nome" value="{{ $produto->nome }}"><br />
-            </div>
-            <div class="form-group">
-                <label for="formGroupExampleInput2">CPF</label>
-                <input type="text" class="form-control" id="formGroupExampleInput2" name="cpf"
-                    placeholder="Digite o CPF" value="{{ $produto->cpf }}"><br />
-            </div>
-            <div class="form-group">
-                <label for="formGroupExampleInput2">E-mail</label>
-                <input type="text" class="form-control" id="formGroupExampleInput2" name="email"
-                    placeholder="Digite o E-mail" value="{{ $produto->email }}">
-            </div>
-
-            <button type="submit" class="btn btn-primary" style="margin-top:25px">Atualizar</button>
-
-    </div>
-
-    </form>
-
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">CPF</th>
+                    <th scope="col">E-mail</th>
+                    <th scope="col">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                        <td>{{ $cliente->nome }}</td>
+                        <td>{{ $cliente->cpf }}</td>
+                        <td>{{ $cliente->email }}</td>
+                        <td>
+                            <form action="{{ route('clientes.destroy', $cliente->id) }}" method="POST">
+                                <a class="btn btn-primary"
+                                    href="{{ route('clientes.edit', $cliente->id) }}">Editar</a>
+                                @method('DELETE')
+                                @csrf
+                                <button type="submit" class="btn btn-danger" value="Delete">Deletar</button>
+                            </form>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
     </div>
     <script src="{{ asset('site/jquery.js') }}"></script>
     <script src="{{ asset('site/bootstrap.js') }}"></script>
-
 </body>
 
 </html>

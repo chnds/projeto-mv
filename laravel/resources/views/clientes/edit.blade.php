@@ -28,15 +28,17 @@
                 </li>
             </ul>
         </nav>
-
-        <h1>Atualizar Cliente</h1>
+        <div class="container">
+        <div class="p-2 text-center">
+            <h1 class="mb-3 center">Atualizar informações</h1>
+        </div>
 
         <form action="{{ route('clientes.update', $cliente->id) }}" method="POST">
             @csrf
             @method('PATCH')
             <div class="form-group">
                 <label for="formGroupExampleInput">Nome</label>
-                <input type="text" class="form-control" id="formGroupExampleInput" name="nome"
+                <input type="text" class="form-control col-xs-4" id="formGroupExampleInput" name="nome"
                     placeholder="Digite o nome" value="{{ $cliente->nome }}"><br />
             </div>
             <div class="form-group">

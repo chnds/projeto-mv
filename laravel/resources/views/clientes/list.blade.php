@@ -28,7 +28,9 @@
                 </li>
             </ul>
         </nav>
-
+        <div class="p-2 text-center">
+            <h1 class="mb-3 center">Clientes</h1>
+        </div>
         <table class="table">
             <thead>
                 <tr>
@@ -51,6 +53,7 @@
                                 @method('DELETE')
                                 @csrf
                                 <button type="submit" class="btn btn-danger" value="Delete">Deletar</button>
+                                <a href="{{route('clientes.show',$cliente->id)}}" class="btn btn-secondary">Info.</a>
                             </form>
                         </td>
                     </tr>

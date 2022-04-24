@@ -27,7 +27,9 @@
                 </li>
             </ul>
         </nav>
-
+        <div class="p-2 text-center">
+            <h1 class="mb-3 center">Produtos</h1>
+        </div>
         <table class="table">
             <thead>
                 <tr>

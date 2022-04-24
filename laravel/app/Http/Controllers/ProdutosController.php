@@ -63,13 +63,10 @@ class ProdutosController extends Controller
      */
     public function edit($id)
     {
-        $customer = Produto::findOrFail($id);
+        $produto = Produto::findOrFail($id);
  
-        if ($customer) {
-            return view('produtos.edit', compact('customer'));
-        } else {
-            return redirect()->back();
-        }
+        return view('produtos.edit', compact('produto'));
+       
     }
 
     /**
