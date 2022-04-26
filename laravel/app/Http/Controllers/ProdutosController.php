@@ -41,7 +41,8 @@ class ProdutosController extends Controller
             'valor' => $request->valor,
         ]);
 
-        return "Produto Criado com Sucesso!";
+        return redirect()->route('produtos.index')
+        ->with('success','Produto cadastrado com sucesso!');
     }
 
     /**
@@ -63,8 +64,7 @@ class ProdutosController extends Controller
      */
     public function edit($id)
     {
-        $produto = Produto::findOrFail($id);
- 
+        $produto = Produto::find($id);
         return view('produtos.edit', compact('produto'));
        
     }
@@ -78,11 +78,20 @@ class ProdutosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $customer = Produto::where('id', $id)->update($request->except('_token', '_method'));
- 
-        if ($customer) {
-            return "Produto Editado com sucesso!";
-        }
+        $request->validate([
+            'valor' => 'required',
+            'descricao' => 'required',
+        ]);
+
+        $data = [
+            "valor"=>$request->valor,
+            "descricao"=>$request->descricao,
+        ];
+
+        produto::where('id', $id)->update($data);
+
+        return redirect()->route('produtos.index')
+        ->with('success','Produto atualizado com sucesso');
     }
 
     /**
@@ -95,8 +104,7 @@ class ProdutosController extends Controller
     {
         $customer = Produto::where('id', $id)->delete();
        
-        if ($customer) {
-            return "Produto Excluído com sucesso!";
-        }
+        return redirect()->route('produtos.index')
+        ->with('success','Produto excluído com sucesso');
     }
 }

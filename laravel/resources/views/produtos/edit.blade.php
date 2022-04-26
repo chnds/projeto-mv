@@ -30,26 +30,21 @@
         </nav>
         <div class="container">
         <div class="p-2 text-center">
-            <h1 class="mb-3 center">Atualizar informações</h1>
+            <h1 class="mb-3 center">Atualizar informações do produto</h1>
         </div>
 
-        <form action="{{ route('clientes.update', $produto->id) }}" method="POST">
+        <form action="{{ route('produtos.update', $produto->id) }}" method="POST">
             @csrf
             @method('PATCH')
             <div class="form-group">
-                <label for="formGroupExampleInput">Nome</label>
-                <input type="text" class="form-control col-xs-4" id="formGroupExampleInput" name="nome"
-                    placeholder="Digite o nome" value="{{ $produto->nome }}"><br />
+                <label for="formGroupExampleInput">Descrição</label>
+                <input type="text" class="form-control col-xs-4" id="formGroupExampleInput" name="descricao"
+                    placeholder="Digite a descrição" value="{{ $produto->descricao }}"><br />
             </div>
             <div class="form-group">
-                <label for="formGroupExampleInput2">CPF</label>
-                <input type="text" class="form-control" id="formGroupExampleInput2" name="cpf"
-                    placeholder="Digite o CPF" value="{{ $produto->cpf }}"><br />
-            </div>
-            <div class="form-group">
-                <label for="formGroupExampleInput2">E-mail</label>
-                <input type="text" class="form-control" id="formGroupExampleInput2" name="email"
-                    placeholder="Digite o E-mail" value="{{ $produto->email }}">
+                <label for="formGroupExampleInput2">Valor unitário</label>
+                <input type="text" class="form-control" id="formGroupExampleInput2" name="valor"
+                    placeholder="Digite o valor do produto" value="{{ $produto->valor }}"><br />
             </div>
 
             <button type="submit" class="btn btn-primary" style="margin-top:25px">Atualizar</button>

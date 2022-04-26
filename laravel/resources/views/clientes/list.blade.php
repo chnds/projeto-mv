@@ -28,9 +28,16 @@
                 </li>
             </ul>
         </nav>
+        
         <div class="p-2 text-center">
             <h1 class="mb-3 center">Clientes</h1>
         </div>
+
+        <div class="input-group input-group-sm mb-3" style="width:200px">
+            <input type="text" id="myInput" placeholder="Buscar..." class="form-control" aria-label="Small"
+                aria-describedby="inputGroup-sizing-sm">
+        </div>
+
         <table class="table">
             <thead>
                 <tr>
@@ -40,7 +47,7 @@
                     <th scope="col">Ações</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="myTable">
                 @foreach ($clientes as $cliente)
                     <tr>
                         <td>{{ $cliente->nome }}</td>
@@ -83,17 +90,17 @@
                             <div class="form-group">
                                 <label for="formGroupExampleInput">Nome</label>
                                 <input type="text" class="form-control" id="formGroupExampleInput" name="nome"
-                                    placeholder="Digite o nome"><br />
+                                    placeholder="Digite o nome" required><br />
                             </div>
                             <div class="form-group">
                                 <label for="formGroupExampleInput2">CPF</label>
                                 <input type="text" class="form-control" id="formGroupExampleInput2" name="cpf"
-                                    placeholder="Digite o CPF"><br />
+                                    placeholder="Digite o CPF" required><br />
                             </div>
                             <div class="form-group">
                                 <label for="formGroupExampleInput2">E-mail</label>
                                 <input type="text" class="form-control" id="formGroupExampleInput2" name="email"
-                                    placeholder="Digite o E-mail">
+                                    placeholder="Digite o E-mail" required>
                             </div>
                     </div>
                     <div class="modal-footer">
@@ -119,6 +126,13 @@
                 $('#exampleModal').modal('hide')
             });
         });
+
+        $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
     </script>
 </body>
 

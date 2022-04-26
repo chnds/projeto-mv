@@ -30,7 +30,7 @@
         </nav>
         <div class="container">
         <div class="p-2 text-center">
-            <h1 class="mb-3 center">Atualizar informações</h1>
+            <h1 class="mb-3 center">Atualizar informações do cliente</h1>
         </div>
 
         <form action="{{ route('clientes.update', $cliente->id) }}" method="POST">

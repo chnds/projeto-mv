@@ -33,6 +33,12 @@
         <div class="p-2 text-center">
             <h1 class="mb-3 center">Pedidos</h1>
         </div>
+
+        <div class="input-group input-group-sm mb-3" style="width:200px">
+            <input type="text" id="myInput" placeholder="Buscar..." class="form-control" aria-label="Small"
+                aria-describedby="inputGroup-sizing-sm">
+        </div>
+
         <table class="table">
             <thead>
                 <tr>
@@ -43,16 +49,22 @@
                     <th scope="col">Ações</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="myTable">
                 @foreach ($pedidos as $pedido)
                     <tr>
-                        <td>{{ $pedido->nome }} <a class="btn"
+                       
+                        <td>
+
+                            {{ $pedido->nome }} <a class="btn"
                                 href="{{ route('clientes.show', $pedido->cliente) }}"><i
-                                    class="fas fa-info-circle fa-xs"></i></a></td>
+                                    class="fas fa-info-circle fa-xs"></i></a>
+
+                        </td>
                         <td>{{ $pedido->produto }}</td>
                         <td>{{ $pedido->numero }}</td>
                         <td>{{ $pedido->quantidade }}</td>
                         <td>
+                         
                             <form action="{{ route('pedidos.destroy', $pedido->id) }}" method="POST">
                                 <a class="btn btn-primary" href="{{ route('pedidos.edit', $pedido->id) }}">Editar</a>
                                 @csrf
@@ -95,17 +107,17 @@
                             <div class="form-group">
                                 <label for="formGroupExampleInput2">Produto</label>
                                 <input type="text" class="form-control" id="formGroupExampleInput2" name="produto"
-                                    placeholder="Digite o produto"><br />
+                                    placeholder="Digite o produto" required><br />
                             </div>
                             <div class="form-group">
                                 <label for="formGroupExampleInput2">Número</label>
                                 <input type="text" class="form-control" id="formGroupExampleInput2" name="numero"
-                                    placeholder="Digite o n° do pedido">
+                                    placeholder="Digite o n° do pedido" required>
                             </div><br />
                             <div class="form-group">
                                 <label for="formGroupExampleInput2">Quantidade</label>
                                 <input type="text" class="form-control" id="formGroupExampleInput2" name="quantidade"
-                                    placeholder="Digite a quantidade">
+                                    placeholder="Digite a quantidade" required>
                             </div>
                     </div>
                     <div class="modal-footer">
@@ -134,6 +146,13 @@
 
             $(".close-modal").click(function() {
                 $('#exampleModal').modal('hide')
+            });
+
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
             });
         });
     </script>

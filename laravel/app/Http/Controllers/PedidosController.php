@@ -30,7 +30,8 @@ class PedidosController extends Controller
      */
     public function create()
     {
-        //
+        return view('pedidos.create');
+
     }
 
     /**
@@ -67,7 +68,9 @@ class PedidosController extends Controller
      */
     public function show($id)
     {
-        //
+        $pedido = pedido::find($id);
+
+        return view('pedidos.show', compact('pedido'));
     }
 
     /**
@@ -78,7 +81,10 @@ class PedidosController extends Controller
      */
     public function edit($id)
     {
-        //
+        $clientes = cliente::all();
+        $pedido = pedido::find($id);
+        
+        return view('pedidos.edit', compact('pedido','clientes'));
     }
 
     /**
@@ -90,7 +96,24 @@ class PedidosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'cliente' => 'required',
+            'produto' => 'required',
+            'numero' => 'required',
+            'quantidade' => 'required',
+        ]);
+
+        $data = [
+            "cliente"=>$request->cliente,
+            "produto"=>$request->produto,
+            "numero"=>$request->numero,
+            "quantidade"=>$request->quantidade,
+        ];
+
+        pedido::where('id', $id)->update($data);
+
+        return redirect()->route('pedidos.index')
+        ->with('success','Pedido atualizado com sucesso');
     }
 
     /**
@@ -101,6 +124,7 @@ class PedidosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        cliente::destroy($id);
+        return redirect()->route('pedidos.index')->with('msg','O pedido foi excluído com sucesso.');
     }
 }
