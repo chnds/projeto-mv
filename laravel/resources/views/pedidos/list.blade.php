@@ -12,29 +12,39 @@
     <link rel="stylesheet" href="{{ asset('site/style.css') }}">
 </head>
 
-<style>
-    .container-fluid{
-        padding: 25px;
-    }
-</style>
-
 <body>
+
     <div class="container-fluid">
-        <nav aria-label="Page navigation example" >
+        Light/dark(Beta)
+        <label class="switch">
+            <i class="fas fa-adjust"></i>
+            <div>
+
+                <input type="checkbox" />
+                <span class="slider round"></span>
+            </div>
+
+        </label>
+
+        <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
                 <li class="page-item disabled">
                     <a class="page-link" href="#" tabindex="-1">Previous</a>
                 </li>
-                <li class="page-item"><a class="page-link" href="{{ route('clientes.index') }}" title="Listagem de clientes">Clientes</a>
+                <li class="page-item"><a class="page-link" href="{{ route('clientes.index') }}"
+                        title="Listagem de clientes">Clientes</a>
                 </li>
-                <li class="page-item"><a class="page-link" href="{{ route('produtos.index') }}" title="Listagem de produtos">Produtos</a>
+                <li class="page-item"><a class="page-link" href="{{ route('produtos.index') }}"
+                        title="Listagem de produtos">Produtos</a>
                 </li>
-                <li class="page-item active"><a class="page-link" href="{{ route('pedidos.index') }}" title="Listagem de pedidos">Pedidos</a>
+                <li class="page-item active"><a class="page-link" href="{{ route('pedidos.index') }}"
+                        title="Listagem de pedidos">Pedidos</a>
                 </li>
                 <li class="page-item">
                     <a class="page-link" href="#">Next</a>
                 </li>
             </ul>
+
         </nav>
         <div class="p-2 text-center">
             <h1 class="mb-3 center">Pedidos</h1>
@@ -45,7 +55,7 @@
                 aria-describedby="inputGroup-sizing-sm">
         </div>
 
-        <table class="table" style="background-color:aliceblue;border-radius:5px">
+        <table class="table">
             <thead>
                 <tr>
                     <th scope="col">Cliente</th>
@@ -77,7 +87,8 @@
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">Deletar</button>
-                                <a href="{{ route('pedidos.show', $pedido->id) }}" class="btn btn-secondary">Info.</a>
+                                <a href="{{ route('pedidos.show', $pedido->id) }}"
+                                    class="btn btn-secondary">Info.</a>
                             </form>
                         </td>
                     </tr>
@@ -101,8 +112,8 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        <form action="{{ route('pedidos.store') }}" method="POST">
+                    <form action="{{ route('pedidos.store') }}" method="POST">
+                        <div class="modal-body">
                             @csrf
                             <div class="form-group">
                                 <label for="formGroupExampleInput">Cliente</label><br />
@@ -128,11 +139,12 @@
                                 <input type="text" class="form-control" id="formGroupExampleInput2" name="quantidade"
                                     placeholder="Digite a quantidade" required>
                             </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary close-modal" data-dismiss="modal">Fechar</button>
-                        <button type="submit" class="btn btn-primary">Cadastrar</button>
-                    </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary close-modal"
+                                data-dismiss="modal">Fechar</button>
+                            <button type="submit" class="btn btn-primary">Cadastrar</button>
+                        </div>
                     </form>
 
                 </div>
@@ -162,6 +174,12 @@
                 $("#myTable tr").filter(function() {
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
+            });
+
+            const themeSwitch = document.querySelector('input');
+
+            themeSwitch.addEventListener('change', () => {
+                document.body.classList.toggle('dark-theme');
             });
         });
     </script>

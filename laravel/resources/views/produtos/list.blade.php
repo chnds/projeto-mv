@@ -6,27 +6,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Listagem de produtos</title>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('site/style.css') }}">
 </head>
 
 <style>
-    .container-fluid{
+    .container-fluid {
         padding: 25px;
     }
+
 </style>
+
 <body>
     <div class="container-fluid">
+        Light/dark(Beta)
+        <label class="switch">
+            <i class="fas fa-adjust"></i>
+            <div>
+                <input type="checkbox" />
+                <span class="slider round"></span>
+            </div>
+        </label>
+
+        </label>
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
                 <li class="page-item disabled">
                     <a class="page-link" href="#" tabindex="-1">Previous</a>
                 </li>
-                <li class="page-item"><a class="page-link" href="{{ route('clientes.index') }}" title="Listagem de clientes">Clientes</a>
+                <li class="page-item"><a class="page-link" href="{{ route('clientes.index') }}"
+                        title="Listagem de clientes">Clientes</a>
                 </li>
-                <li class="page-item active"><a class="page-link" href="{{ route('produtos.index') }}" title="Listagem de produtos">Produtos</a>
+                <li class="page-item active"><a class="page-link" href="{{ route('produtos.index') }}"
+                        title="Listagem de produtos">Produtos</a>
                 </li>
-                <li class="page-item"><a class="page-link" href="{{ route('pedidos.index') }}" title="Listagem de pedidos">Pedidos</a></li>
+                <li class="page-item"><a class="page-link" href="{{ route('pedidos.index') }}"
+                        title="Listagem de pedidos">Pedidos</a></li>
                 <li class="page-item">
                     <a class="page-link" href="{{ route('pedidos.index') }}">Next</a>
                 </li>
@@ -41,7 +58,7 @@
                 aria-describedby="inputGroup-sizing-sm">
         </div>
 
-        <table class="table" style="background-color:aliceblue;border-radius:5px">
+        <table class="table">
             <thead>
                 <tr>
                     <th scope="col">Descrição</th>
@@ -56,11 +73,13 @@
                         <td>R${{ $produto->valor }}</td>
                         <td>
                             <form action="{{ route('produtos.destroy', $produto->id) }}" method="POST">
-                                <a class="btn btn-primary" href="{{ route('produtos.edit', $produto->id) }}">Editar</a>
+                                <a class="btn btn-primary"
+                                    href="{{ route('produtos.edit', $produto->id) }}">Editar</a>
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">Deletar</button>
-                                <a href="{{ route('produtos.show', $produto->id) }}" class="btn btn-secondary">Info.</a>
+                                <a href="{{ route('produtos.show', $produto->id) }}"
+                                    class="btn btn-secondary">Info.</a>
                             </form>
                         </td>
                     </tr>
@@ -68,8 +87,9 @@
             </tbody>
         </table>
 
-         <!-- Button trigger modal -->
-         <button type="button" class="btn btn-success cadastrar" data-toggle="modal" data-target="#exampleModal" title="Cadastrar produto">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-success cadastrar" data-toggle="modal" data-target="#exampleModal"
+            title="Cadastrar produto">
             Cadastrar
         </button>
 
@@ -84,8 +104,9 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        <form action="{{ route('produtos.store') }}" method="POST">
+                    <form action="{{ route('produtos.store') }}" method="POST">
+
+                        <div class="modal-body">
                             @csrf
                             <div class="form-group">
                                 <label for="formGroupExampleInput">Descrição</label>
@@ -97,12 +118,13 @@
                                 <input type="text" class="form-control" id="formGroupExampleInput2" name="valor"
                                     placeholder="Digite o valor unitário" required><br />
                             </div>
-                        
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary close-modal" data-dismiss="modal">Fechar</button>
-                        <button type="submit" class="btn btn-primary">Cadastrar</button>
-                    </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary close-modal"
+                                data-dismiss="modal">Fechar</button>
+                            <button type="submit" class="btn btn-primary">Cadastrar</button>
+                        </div>
                     </form>
 
                 </div>
@@ -112,7 +134,7 @@
     <script src="{{ asset('site/jquery.js') }}"></script>
     <script src="{{ asset('site/bootstrap.js') }}"></script>
 
-    
+
     <script>
         $(document).ready(function() {
             $(".cadastrar").click(function() {
@@ -122,14 +144,20 @@
             $(".close-modal").click(function() {
                 $('#exampleModal').modal('hide')
             });
+
+            const themeSwitch = document.querySelector('input');
+
+            themeSwitch.addEventListener('change', () => {
+                document.body.classList.toggle('dark-theme');
+            });
         });
 
         $("#myInput").on("keyup", function() {
-                var value = $(this).val().toLowerCase();
-                $("#myTable tr").filter(function() {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
+        });
     </script>
 </body>
 
