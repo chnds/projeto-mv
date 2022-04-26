@@ -53,7 +53,7 @@ class PedidosController extends Controller
         $pedido->cliente = $request->cliente;
         $pedido->produto = $request->produto;
         $pedido->numero = $request->numero;
-        $pedido->status = 'Em andamento';
+        $pedido->status = 'Em aberto';
         $pedido->quantidade = $request->quantidade;
         $pedido->save();
 
@@ -101,6 +101,7 @@ class PedidosController extends Controller
             'produto' => 'required',
             'numero' => 'required',
             'quantidade' => 'required',
+            'status' => 'required',
         ]);
 
         $data = [
@@ -108,6 +109,7 @@ class PedidosController extends Controller
             "produto"=>$request->produto,
             "numero"=>$request->numero,
             "quantidade"=>$request->quantidade,
+            "status"=>$request->status,
         ];
 
         pedido::where('id', $id)->update($data);
@@ -124,7 +126,7 @@ class PedidosController extends Controller
      */
     public function destroy($id)
     {
-        cliente::destroy($id);
+        pedido::destroy($id);
         return redirect()->route('pedidos.index')->with('msg','O pedido foi excluído com sucesso.');
     }
 }

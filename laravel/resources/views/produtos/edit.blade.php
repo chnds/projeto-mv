@@ -10,6 +10,12 @@
     <link rel="stylesheet" href="{{ asset('site/style.css') }}">
 </head>
 
+<style>
+    .container-fluid{
+        padding: 25px;
+    }
+</style>
+
 <body>
     <div class="container-fluid">
         <nav aria-label="Page navigation example">
@@ -19,7 +25,7 @@
                 </li>
                 <li class="page-item"><a class="page-link" href="{{ route('clientes.index') }}">Clientes</a>
                 </li>
-                <li class="page-item"><a class="page-link" href="{{ route('produtos.index') }}">Produtos</a>
+                <li class="page-item active"><a class="page-link" href="{{ route('produtos.index') }}">Produtos</a>
                 </li>
                 <li class="page-item"><a class="page-link" href="{{ route('pedidos.index') }}">Pedidos</a>
                 </li>
@@ -39,12 +45,12 @@
             <div class="form-group">
                 <label for="formGroupExampleInput">Descrição</label>
                 <input type="text" class="form-control col-xs-4" id="formGroupExampleInput" name="descricao"
-                    placeholder="Digite a descrição" value="{{ $produto->descricao }}"><br />
+                    placeholder="Digite a descrição" value="{{ $produto->descricao }}" required><br />
             </div>
             <div class="form-group">
                 <label for="formGroupExampleInput2">Valor unitário</label>
                 <input type="text" class="form-control" id="formGroupExampleInput2" name="valor"
-                    placeholder="Digite o valor do produto" value="{{ $produto->valor }}"><br />
+                    placeholder="Digite o valor do produto" value="{{ $produto->valor }}" required><br />
             </div>
 
             <button type="submit" class="btn btn-primary" style="margin-top:25px">Atualizar</button>

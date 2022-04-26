@@ -12,18 +12,24 @@
     <link rel="stylesheet" href="{{ asset('site/style.css') }}">
 </head>
 
+<style>
+    .container-fluid{
+        padding: 25px;
+    }
+</style>
+
 <body>
     <div class="container-fluid">
-        <nav aria-label="Page navigation example">
+        <nav aria-label="Page navigation example" >
             <ul class="pagination justify-content-center">
                 <li class="page-item disabled">
                     <a class="page-link" href="#" tabindex="-1">Previous</a>
                 </li>
-                <li class="page-item"><a class="page-link" href="{{ route('clientes.index') }}">Clientes</a>
+                <li class="page-item"><a class="page-link" href="{{ route('clientes.index') }}" title="Listagem de clientes">Clientes</a>
                 </li>
-                <li class="page-item"><a class="page-link" href="{{ route('produtos.index') }}">Produtos</a>
+                <li class="page-item"><a class="page-link" href="{{ route('produtos.index') }}" title="Listagem de produtos">Produtos</a>
                 </li>
-                <li class="page-item"><a class="page-link" href="{{ route('pedidos.index') }}">Pedidos</a>
+                <li class="page-item active"><a class="page-link" href="{{ route('pedidos.index') }}" title="Listagem de pedidos">Pedidos</a>
                 </li>
                 <li class="page-item">
                     <a class="page-link" href="#">Next</a>
@@ -39,20 +45,21 @@
                 aria-describedby="inputGroup-sizing-sm">
         </div>
 
-        <table class="table">
+        <table class="table" style="background-color:aliceblue;border-radius:5px">
             <thead>
                 <tr>
                     <th scope="col">Cliente</th>
                     <th scope="col">Produtos</th>
                     <th scope="col">Número</th>
                     <th scope="col">Quantidade</th>
+                    <th scope="col">Status</th>
                     <th scope="col">Ações</th>
                 </tr>
             </thead>
             <tbody id="myTable">
                 @foreach ($pedidos as $pedido)
                     <tr>
-                       
+
                         <td>
 
                             {{ $pedido->nome }} <a class="btn"
@@ -63,13 +70,14 @@
                         <td>{{ $pedido->produto }}</td>
                         <td>{{ $pedido->numero }}</td>
                         <td>{{ $pedido->quantidade }}</td>
+                        <td>{{ $pedido->status }}</td>
                         <td>
-                         
                             <form action="{{ route('pedidos.destroy', $pedido->id) }}" method="POST">
                                 <a class="btn btn-primary" href="{{ route('pedidos.edit', $pedido->id) }}">Editar</a>
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">Deletar</button>
+                                <a href="{{ route('pedidos.show', $pedido->id) }}" class="btn btn-secondary">Info.</a>
                             </form>
                         </td>
                     </tr>
@@ -77,7 +85,8 @@
             </tbody>
         </table>
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-success cadastrar" data-toggle="modal" data-target="#exampleModal">
+        <button type="button" class="btn btn-success cadastrar" data-toggle="modal" data-target="#exampleModal"
+            title="Cadastrar pedido">
             Cadastrar
         </button>
 
@@ -107,7 +116,7 @@
                             <div class="form-group">
                                 <label for="formGroupExampleInput2">Produto</label>
                                 <input type="text" class="form-control" id="formGroupExampleInput2" name="produto"
-                                    placeholder="Digite o produto" required><br />
+                                    placeholder="Digite o nome do produto" required><br />
                             </div>
                             <div class="form-group">
                                 <label for="formGroupExampleInput2">Número</label>

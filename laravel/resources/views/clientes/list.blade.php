@@ -8,7 +8,14 @@
     <title>Listagem de clientes</title>
 
     <link rel="stylesheet" href="{{ asset('site/style.css') }}">
+    
 </head>
+
+<style>
+    .container-fluid{
+        padding: 25px;
+    }
+</style>
 
 <body>
     <div class="container-fluid">
@@ -17,59 +24,63 @@
                 <li class="page-item disabled">
                     <a class="page-link" href="#" tabindex="-1">Previous</a>
                 </li>
-                <li class="page-item"><a class="page-link" href="{{ route('clientes.index') }}">Clientes</a>
+                <li class="page-item active"><a class="page-link" href="{{ route('clientes.index') }}"
+                        title="Listagem de clientes">Clientes</a>
                 </li>
-                <li class="page-item"><a class="page-link" href="{{ route('produtos.index') }}">Produtos</a>
+                <li class="page-item"><a class="page-link" href="{{ route('produtos.index') }}"
+                        title="Listagem de produtos">Produtos</a>
                 </li>
-                <li class="page-item"><a class="page-link" href="{{ route('pedidos.index') }}">Pedidos</a>
+                <li class="page-item"><a class="page-link" href="{{ route('pedidos.index') }}"
+                        title="Listagem de pedidos">Pedidos</a>
                 </li>
                 <li class="page-item">
                     <a class="page-link" href="{{ route('produtos.index') }}">Next</a>
                 </li>
             </ul>
         </nav>
-        
+
         <div class="p-2 text-center">
             <h1 class="mb-3 center">Clientes</h1>
         </div>
 
-        <div class="input-group input-group-sm mb-3" style="width:200px">
-            <input type="text" id="myInput" placeholder="Buscar..." class="form-control" aria-label="Small"
-                aria-describedby="inputGroup-sizing-sm">
-        </div>
+            <div class="input-group input-group-sm mb-3" style="width:200px">
+                <input type="text" id="myInput" placeholder="Buscar..." class="form-control" aria-label="Small"
+                    aria-describedby="inputGroup-sizing-sm">
+            </div>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Nome</th>
-                    <th scope="col">CPF</th>
-                    <th scope="col">E-mail</th>
-                    <th scope="col">Ações</th>
-                </tr>
-            </thead>
-            <tbody id="myTable">
-                @foreach ($clientes as $cliente)
+            <table class="table" style="background-color:aliceblue;border-radius:5px">
+                <thead>
                     <tr>
-                        <td>{{ $cliente->nome }}</td>
-                        <td>{{ $cliente->cpf }}</td>
-                        <td>{{ $cliente->email }}</td>
-                        <td>
-                            <form action="{{ route('clientes.destroy', $cliente->id) }}" method="POST">
-                                <a class="btn btn-primary"
-                                    href="{{ route('clientes.edit', $cliente->id) }}">Editar</a>
-                                @method('DELETE')
-                                @csrf
-                                <button type="submit" class="btn btn-danger" value="Delete">Deletar</button>
-                                <a href="{{route('clientes.show',$cliente->id)}}" class="btn btn-secondary">Info.</a>
-                            </form>
-                        </td>
+                        <th scope="col">Nome</th>
+                        <th scope="col">CPF</th>
+                        <th scope="col">E-mail</th>
+                        <th scope="col">Ações</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody id="myTable">
+                    @foreach ($clientes as $cliente)
+                        <tr>
+                            <td>{{ $cliente->nome }}</td>
+                            <td>{{ $cliente->cpf }}</td>
+                            <td>{{ $cliente->email }}</td>
+                            <td>
+                                <form action="{{ route('clientes.destroy', $cliente->id) }}" method="POST">
+                                    <a class="btn btn-primary"
+                                        href="{{ route('clientes.edit', $cliente->id) }}">Editar</a>
+                                    @method('DELETE')
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger" value="Delete">Deletar</button>
+                                    <a href="{{ route('clientes.show', $cliente->id) }}" class="btn btn-secondary">Info.</a>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
 
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-success cadastrar" data-toggle="modal" data-target="#exampleModal">
+        <button type="button" class="btn btn-success cadastrar" data-toggle="modal" data-target="#exampleModal"
+            title="Cadastrar cliente">
             Cadastrar
         </button>
 
@@ -95,7 +106,7 @@
                             <div class="form-group">
                                 <label for="formGroupExampleInput2">CPF</label>
                                 <input type="text" class="form-control" id="formGroupExampleInput2" name="cpf"
-                                    placeholder="Digite o CPF" required><br />
+                                   id="cpf" placeholder="Digite o CPF" required><br />
                             </div>
                             <div class="form-group">
                                 <label for="formGroupExampleInput2">E-mail</label>
@@ -128,11 +139,13 @@
         });
 
         $("#myInput").on("keyup", function() {
-                var value = $(this).val().toLowerCase();
-                $("#myTable tr").filter(function() {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
+        });
+
+
     </script>
 </body>
 

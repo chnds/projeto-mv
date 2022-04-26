@@ -10,6 +10,12 @@
     <link rel="stylesheet" href="{{ asset('site/style.css') }}">
 </head>
 
+<style>
+    .container-fluid{
+        padding: 25px;
+    }
+</style>
+
 <body>
     <div class="container-fluid">
         <nav aria-label="Page navigation example">
@@ -21,7 +27,7 @@
                 </li>
                 <li class="page-item"><a class="page-link" href="{{ route('produtos.index') }}">Produtos</a>
                 </li>
-                <li class="page-item"><a class="page-link" href="{{ route('pedidos.index') }}">Pedidos</a>
+                <li class="page-item active"><a class="page-link" href="{{ route('pedidos.index') }}">Pedidos</a>
                 </li>
                 <li class="page-item">
                     <a class="page-link" href="{{ route('produtos.index') }}">Next</a>
@@ -33,7 +39,7 @@
                 <h1 class="mb-3 center">Atualizar informações de pedido</h1>
             </div>
 
-            <form action="{{ route('pedidos.update',$pedido->id) }}" method="POST">
+            <form action="{{ route('pedidos.update', $pedido->id) }}" method="POST">
                 @csrf
                 @method('PATCH')
                 <div class="form-group">
@@ -48,17 +54,29 @@
                 <div class="form-group">
                     <label for="formGroupExampleInput2">Produto</label>
                     <input type="text" class="form-control" id="formGroupExampleInput2" name="produto"
-                        placeholder="Digite o produto" value="{{$pedido->produto}}"><br />
+                        placeholder="Digite o produto" value="{{ $pedido->produto }}" required><br />
                 </div>
+
                 <div class="form-group">
                     <label for="formGroupExampleInput2">Número</label>
                     <input type="text" class="form-control" id="formGroupExampleInput2" name="numero"
-                        placeholder="Digite o n° do pedido" value="{{$pedido->numero}}">
+                        placeholder="Digite o n° do pedido" value="{{ $pedido->numero }}" required>
                 </div><br />
+
                 <div class="form-group">
                     <label for="formGroupExampleInput2">Quantidade</label>
                     <input type="text" class="form-control" id="formGroupExampleInput2" name="quantidade"
-                        placeholder="Digite a quantidade" value="{{$pedido->quantidade}}">
+                        placeholder="Digite a quantidade" value="{{ $pedido->quantidade }}" required>
+                </div><br />
+
+                <div class="form-group">
+                    <label for="formGroupExampleInput">status</label>
+                    <select class="form-select" aria-label="Default select example" name="status" required>
+                        <option selected></option>
+                            <option value="Em aberto">Em aberto</option>
+                            <option value="Pago">Pago</option>
+                            <option value="Cancelado">Cancelado</option>
+                    </select>
                 </div>
 
                 <button type="submit" class="btn btn-primary" style="margin-top:25px">Atualizar</button>

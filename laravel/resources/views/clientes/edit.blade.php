@@ -10,6 +10,12 @@
     <link rel="stylesheet" href="{{ asset('site/style.css') }}">
 </head>
 
+<style>
+    .container-fluid{
+        padding: 25px;
+    }
+</style>
+
 <body>
     <div class="container-fluid">
         <nav aria-label="Page navigation example">
@@ -17,7 +23,7 @@
                 <li class="page-item disabled">
                     <a class="page-link" href="#" tabindex="-1">Previous</a>
                 </li>
-                <li class="page-item"><a class="page-link" href="{{ route('clientes.index') }}">Clientes</a>
+                <li class="page-item active"><a class="page-link" href="{{ route('clientes.index') }}">Clientes</a>
                 </li>
                 <li class="page-item"><a class="page-link" href="{{ route('produtos.index') }}">Produtos</a>
                 </li>
@@ -39,17 +45,17 @@
             <div class="form-group">
                 <label for="formGroupExampleInput">Nome</label>
                 <input type="text" class="form-control col-xs-4" id="formGroupExampleInput" name="nome"
-                    placeholder="Digite o nome" value="{{ $cliente->nome }}"><br />
+                    placeholder="Digite o nome" value="{{ $cliente->nome }}" required><br />
             </div>
             <div class="form-group">
                 <label for="formGroupExampleInput2">CPF</label>
                 <input type="text" class="form-control" id="formGroupExampleInput2" name="cpf"
-                    placeholder="Digite o CPF" value="{{ $cliente->cpf }}"><br />
+                    placeholder="Digite o CPF" value="{{ $cliente->cpf }}" required><br />
             </div>
             <div class="form-group">
                 <label for="formGroupExampleInput2">E-mail</label>
                 <input type="text" class="form-control" id="formGroupExampleInput2" name="email"
-                    placeholder="Digite o E-mail" value="{{ $cliente->email }}">
+                    placeholder="Digite o E-mail" value="{{ $cliente->email }}" required>
             </div>
 
             <button type="submit" class="btn btn-primary" style="margin-top:25px">Atualizar</button>
