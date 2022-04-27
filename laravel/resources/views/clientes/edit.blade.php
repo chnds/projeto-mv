@@ -10,11 +10,6 @@
     <link rel="stylesheet" href="{{ asset('site/style.css') }}">
 </head>
 
-<style>
-    .container-fluid{
-        padding: 25px;
-    }
-</style>
 
 <body>
     <div class="container-fluid">
@@ -35,34 +30,36 @@
             </ul>
         </nav>
         <div class="container">
-        <div class="p-2 text-center">
-            <h1 class="mb-3 center">Atualizar informações do cliente</h1>
+            <div class="p-2 text-center">
+                <h1 class="mb-3 center">Atualizar informações do cliente</h1>
+            </div>
+
+            <form action="{{ route('clientes.update', $cliente->id) }}" method="POST">
+                @csrf
+                @method('PATCH')
+                
+                <div class="form-group">
+                    <label for="formGroupExampleInput">Nome</label>
+                    <input type="text" class="form-control col-xs-4" id="formGroupExampleInput" name="nome"
+                        placeholder="Digite o nome" value="{{ $cliente->nome }}" required><br />
+                </div>
+
+                <div class="form-group">
+                    <label for="formGroupExampleInput2">CPF</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput2" name="cpf"
+                        placeholder="Digite o CPF" value="{{ $cliente->cpf }}" required><br />
+                </div>
+
+                <div class="form-group">
+                    <label for="formGroupExampleInput2">E-mail</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput2" name="email"
+                        placeholder="Digite o E-mail" value="{{ $cliente->email }}" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="margin-top:25px">Atualizar</button>
+
+            </form>
         </div>
-
-        <form action="{{ route('clientes.update', $cliente->id) }}" method="POST">
-            @csrf
-            @method('PATCH')
-            <div class="form-group">
-                <label for="formGroupExampleInput">Nome</label>
-                <input type="text" class="form-control col-xs-4" id="formGroupExampleInput" name="nome"
-                    placeholder="Digite o nome" value="{{ $cliente->nome }}" required><br />
-            </div>
-            <div class="form-group">
-                <label for="formGroupExampleInput2">CPF</label>
-                <input type="text" class="form-control" id="formGroupExampleInput2" name="cpf"
-                    placeholder="Digite o CPF" value="{{ $cliente->cpf }}" required><br />
-            </div>
-            <div class="form-group">
-                <label for="formGroupExampleInput2">E-mail</label>
-                <input type="text" class="form-control" id="formGroupExampleInput2" name="email"
-                    placeholder="Digite o E-mail" value="{{ $cliente->email }}" required>
-            </div>
-
-            <button type="submit" class="btn btn-primary" style="margin-top:25px">Atualizar</button>
-
-    </div>
-
-    </form>
 
     </div>
     <script src="{{ asset('site/jquery.js') }}"></script>

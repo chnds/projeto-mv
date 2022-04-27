@@ -10,13 +10,6 @@
     <link rel="stylesheet" href="{{ asset('site/style.css') }}">
 </head>
 
-<style>
-    .container-fluid {
-        padding: 25px;
-    }
-
-</style>
-
 <body>
     <div class="container-fluid">
         <nav aria-label="Page navigation example">

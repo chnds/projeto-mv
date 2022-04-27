@@ -10,12 +10,6 @@
     <link rel="stylesheet" href="{{ asset('site/style.css') }}">
 </head>
 
-<style>
-    .container-fluid{
-        padding: 25px;
-    }
-</style>
-
 <body>
     <div class="container-fluid">
         <nav aria-label="Page navigation example">
@@ -51,6 +45,7 @@
                         @endforeach
                     </select>
                 </div><br />
+                
                 <div class="form-group">
                     <label for="formGroupExampleInput">Produto</label><br />
                     <select class="form-select" aria-label="Default select example" name="produto" required>
@@ -77,9 +72,9 @@
                     <label for="formGroupExampleInput">status</label>
                     <select class="form-select" aria-label="Default select example" name="status" required>
                         <option selected></option>
-                            <option value="Em aberto">Em aberto</option>
-                            <option value="Pago">Pago</option>
-                            <option value="Cancelado">Cancelado</option>
+                        <option value="Em aberto">Em aberto</option>
+                        <option value="Pago">Pago</option>
+                        <option value="Cancelado">Cancelado</option>
                     </select>
                 </div>
 
@@ -88,8 +83,6 @@
             </form>
 
         </div>
-
-
 
     </div>
     <script src="{{ asset('site/jquery.js') }}"></script>

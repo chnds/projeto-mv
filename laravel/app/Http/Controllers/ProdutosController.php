@@ -110,7 +110,7 @@ class ProdutosController extends Controller
         ->with('success','Produto excluído com sucesso');
     }
 
-    public function excluirClientes(request $request)
+    public function excluirProdutos(request $request)
     {
         foreach($request->valores as $valor){
             produto::destroy($valor);

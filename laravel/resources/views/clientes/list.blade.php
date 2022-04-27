@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
@@ -14,16 +14,10 @@
 
 </head>
 
-<style>
-    .container-fluid {
-        padding: 25px;
-    }
-
-</style>
-
 <body>
     <div class="container-fluid">
         Light/dark(Beta)
+        <!--Dark/light-->
         <label class="switch">
             <i class="fas fa-adjust"></i>
             <div>
@@ -33,6 +27,7 @@
         </label>
 
         <nav aria-label="Page navigation example">
+            <!--NavBar-->
             <ul class="pagination justify-content-center">
                 <li class="page-item disabled">
                     <a class="page-link" href="#" tabindex="-1">Previous</a>
@@ -57,11 +52,13 @@
         </div>
 
         <div class="input-group input-group-sm mb-3" style="width:200px">
-            <input type="text" id="myInput" placeholder="Buscar..." class="form-control" aria-label="Small"
+            <!--Filtro de busca-->
+            <input type="text" id="buscar-informacao" placeholder="Buscar..." class="form-control" aria-label="Small"
                 aria-describedby="inputGroup-sizing-sm">
         </div>
 
         <table class="table">
+            <!--Tabela de listagem-->
             <thead>
                 <tr>
                     <th scope="col">Nome</th>
@@ -71,7 +68,7 @@
                     <th scope="col">Seleção</th>
                 </tr>
             </thead>
-            <tbody id="myTable">
+            <tbody id="tabela-clientes">
                 @foreach ($clientes as $cliente)
                     <tr>
                         <td><a href="{{ route('clientes.show', $cliente->id) }}">{{ $cliente->nome }}</a></td>
@@ -88,7 +85,7 @@
                                     class="btn btn-secondary">Info.</a>
                             </form>
                         </td>
-                        <td><input type="checkbox" name="idCliente" class="idCliente"
+                        <td><input type="checkbox" name="idCliente" class="id-cliente"
                                 value="{{ $cliente->id }}">
                         </td>
                     </tr>
@@ -97,22 +94,24 @@
 
         </table>
 
-        <!-- Button trigger modal -->
+        <!-- Abrir o modal -->
         <button type="button" class="btn btn-success cadastrar" data-toggle="modal" data-target="#exampleModal"
             title="Cadastrar cliente">
             Cadastrar
         </button>
-        <button type="button" class="btn btn-danger excluirItens" style="display:none">Excluir itens
+
+        <!-- Excluir selecão em massa -->
+        <button type="button" class="btn btn-danger excluir-itens" style="display:none">Excluir itens
             selecionados</button>
 
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        <!-- Modal com formulário p/ cadastro -->
+        <div class="modal fade" id="modal-clientes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Cadastrar cliente</h5>
-                        <button type="button" class="btn close close-modal" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="btn close fechar-modal" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -137,7 +136,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary close-modal"
+                            <button type="button" class="btn btn-secondary fechar-modal"
                                 data-dismiss="modal">Fechar</button>
                             <button type="submit" class="btn btn-primary">Cadastrar</button>
                         </div>
@@ -147,18 +146,12 @@
             </div>
         </div>
     </div>
+
     <script src="{{ asset('site/jquery.js') }}"></script>
     <script src="{{ asset('site/bootstrap.js') }}"></script>
 
     <script>
         $(document).ready(function() {
-            $(".cadastrar").click(function() {
-                $('#exampleModal').modal('show')
-            });
-
-            $(".close-modal").click(function() {
-                $('#exampleModal').modal('hide')
-            });
 
             const themeSwitch = document.querySelector('input');
 
@@ -166,29 +159,37 @@
                 document.body.classList.toggle('dark-theme');
             });
 
-            $("#myInput").on("keyup", function() {
+            $(".cadastrar").click(function() { //Abrir Modal
+                $('#modal-clientes').modal('show')
+            });
+
+            $(".fechar-modal").click(function() { //Fechar Modal
+                $('#modal-clientes').modal('hide')
+            });
+
+            $("#buscar-informacao").on("keyup", function() { //Filtro de busca
                 var value = $(this).val().toLowerCase();
-                $("#myTable tr").filter(function() {
+                $("#tabela-clientes tr").filter(function() {
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
             });
 
             var valores = [];
 
-            $(".idCliente").change(function() {
-                $(".excluirItens").removeAttr('style');
+            $(".id-cliente").change(function() { //Captura dos ID's p/ exclusão
+                $(".excluir-itens").removeAttr('style');
 
                 if ($(this).is(':checked')) {
                     valores.push($(this).closest('tr').find('input[type=checkbox]').val());
                     console.log(valores);
                 } else {
-                    valores.pop($('.idCliente').val());
+                    valores.pop($('.id-cliente').val());
                     console.log(valores);
                 }
 
             })
 
-            $(".excluirItens").click(function() {
+            $(".excluir-itens").click(function() { //Ajax para exclusão em massa
                 if (confirm("Deseja realmente excluir o clientes selecionados ?")) {
 
                     $.ajax({

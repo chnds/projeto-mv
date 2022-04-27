@@ -11405,3 +11405,7 @@ main {
 .slider {
   background-color: var(--themeSwitchColor);
 }
+
+.container-fluid {
+  padding: 25px;
+}

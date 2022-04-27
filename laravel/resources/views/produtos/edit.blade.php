@@ -10,12 +10,6 @@
     <link rel="stylesheet" href="{{ asset('site/style.css') }}">
 </head>
 
-<style>
-    .container-fluid{
-        padding: 25px;
-    }
-</style>
-
 <body>
     <div class="container-fluid">
         <nav aria-label="Page navigation example">
@@ -35,29 +29,29 @@
             </ul>
         </nav>
         <div class="container">
-        <div class="p-2 text-center">
-            <h1 class="mb-3 center">Atualizar informações do produto</h1>
+            <div class="p-2 text-center">
+                <h1 class="mb-3 center">Atualizar informações do produto</h1>
+            </div>
+
+            <form action="{{ route('produtos.update', $produto->id) }}" method="POST">
+                @csrf
+                @method('PATCH')
+                
+                <div class="form-group">
+                    <label for="formGroupExampleInput">Descrição</label>
+                    <input type="text" class="form-control col-xs-4" id="formGroupExampleInput" name="descricao"
+                        placeholder="Digite a descrição" value="{{ $produto->descricao }}" required><br />
+                </div>
+
+                <div class="form-group">
+                    <label for="formGroupExampleInput2">Valor unitário</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput2" name="valor"
+                        placeholder="Digite o valor do produto" value="{{ $produto->valor }}" required><br />
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="margin-top:25px">Atualizar</button>
+            </form>
         </div>
-
-        <form action="{{ route('produtos.update', $produto->id) }}" method="POST">
-            @csrf
-            @method('PATCH')
-            <div class="form-group">
-                <label for="formGroupExampleInput">Descrição</label>
-                <input type="text" class="form-control col-xs-4" id="formGroupExampleInput" name="descricao"
-                    placeholder="Digite a descrição" value="{{ $produto->descricao }}" required><br />
-            </div>
-            <div class="form-group">
-                <label for="formGroupExampleInput2">Valor unitário</label>
-                <input type="text" class="form-control" id="formGroupExampleInput2" name="valor"
-                    placeholder="Digite o valor do produto" value="{{ $produto->valor }}" required><br />
-            </div>
-
-            <button type="submit" class="btn btn-primary" style="margin-top:25px">Atualizar</button>
-
-    </div>
-
-    </form>
 
     </div>
     <script src="{{ asset('site/jquery.js') }}"></script>

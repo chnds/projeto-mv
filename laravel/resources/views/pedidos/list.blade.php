@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
@@ -16,6 +16,7 @@
 
     <div class="container-fluid">
         Light/dark(Beta)
+        <!--Dark/light-->
         <label class="switch">
             <i class="fas fa-adjust"></i>
             <div>
@@ -27,6 +28,8 @@
         </label>
 
         <nav aria-label="Page navigation example">
+            <!---NavBar-->
+
             <ul class="pagination justify-content-center">
                 <li class="page-item disabled">
                     <a class="page-link" href="#" tabindex="-1">Previous</a>
@@ -51,11 +54,12 @@
         </div>
 
         <div class="input-group input-group-sm mb-3" style="width:200px">
-            <input type="text" id="myInput" placeholder="Buscar..." class="form-control" aria-label="Small"
+            <input type="text" id="buscar-informacao" placeholder="Buscar..." class="form-control" aria-label="Small"
                 aria-describedby="inputGroup-sizing-sm">
         </div>
 
         <table class="table">
+            <!--Tabela de listagem-->
             <thead>
                 <tr>
                     <th scope="col">Cliente</th>
@@ -67,7 +71,7 @@
                     <th scope="col">Seleção</th>
                 </tr>
             </thead>
-            <tbody id="myTable">
+            <tbody id="tabela-pedidos">
                 @foreach ($pedidos as $pedido)
                     <tr>
                         <td>
@@ -93,23 +97,22 @@
                                     class="btn btn-secondary">Info.</a>
                             </form>
                         </td>
-                        <td><input type="checkbox" name="idPedido" class="idPedido"
-                                value="{{ $pedido->id }}">
+                        <td><input type="checkbox" name="idPedido" class="id-pedido" value="{{ $pedido->id }}">
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
-        <!-- Button trigger modal -->
+        <!-- Abrir modal -->
         <button type="button" class="btn btn-success cadastrar" data-toggle="modal" data-target="#exampleModal"
             title="Cadastrar pedido">
             Cadastrar
         </button>
 
-        <button type="button" class="btn btn-danger excluirItens" style="display:none">Excluir itens
+        <button type="button" class="btn btn-danger excluir-itens" style="display:none">Excluir itens
             selecionados</button>
 
-        <!-- Modal -->
+        <!-- Modal de cadastro -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -170,47 +173,43 @@
 
     <script>
         $(document).ready(function() {
-            $(".cadastrar").click(function() {
-                $('#exampleModal').modal('show')
-            });
-
-            $(".btn_cliente").click(function() {
-                $('#exampleModal2').modal('show')
-            });
-
-            $(".close-modal").click(function() {
-                $('#exampleModal').modal('hide')
-            });
-
-            $("#myInput").on("keyup", function() {
-                var value = $(this).val().toLowerCase();
-                $("#myTable tr").filter(function() {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
-            });
-
             const themeSwitch = document.querySelector('input');
 
             themeSwitch.addEventListener('change', () => {
                 document.body.classList.toggle('dark-theme');
             });
 
+            $(".cadastrar").click(function() {
+                $('#exampleModal').modal('show')
+            });
+
+            $(".close-modal").click(function() {
+                $('#exampleModal').modal('hide')
+            });
+
+            $("#buscar-informacao").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#tabela-pedidos tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+
             var valores = [];
 
-            $(".idPedido").change(function() {
-                $(".excluirItens").removeAttr('style');
+            $(".id-pedido").change(function() {
+                $(".excluir-itens").removeAttr('style');
 
                 if ($(this).is(':checked')) {
                     valores.push($(this).closest('tr').find('input[type=checkbox]').val());
                     console.log(valores);
                 } else {
-                    valores.pop($('.idPedido').val());
+                    valores.pop($('.id-pedido').val());
                     console.log(valores);
                 }
 
             })
 
-            $(".excluirItens").click(function() {
+            $(".excluir-itens").click(function() { //Ajax exclusão dos itens
                 if (confirm("Deseja realmente excluir o pedidos selecionados ?")) {
 
                     $.ajax({

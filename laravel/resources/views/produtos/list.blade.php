@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
@@ -12,16 +12,10 @@
     <link rel="stylesheet" href="{{ asset('site/style.css') }}">
 </head>
 
-<style>
-    .container-fluid {
-        padding: 25px;
-    }
-
-</style>
-
 <body>
     <div class="container-fluid">
         Light/dark(Beta)
+        <!--Dark/light-->
         <label class="switch">
             <i class="fas fa-adjust"></i>
             <div>
@@ -30,8 +24,8 @@
             </div>
         </label>
 
-        </label>
         <nav aria-label="Page navigation example">
+            <!---NavBar-->
             <ul class="pagination justify-content-center">
                 <li class="page-item disabled">
                     <a class="page-link" href="#" tabindex="-1">Previous</a>
@@ -54,11 +48,13 @@
         </div>
 
         <div class="input-group input-group-sm mb-3" style="width:200px">
-            <input type="text" id="myInput" placeholder="Buscar..." class="form-control" aria-label="Small"
+            <!--Filtro de busca-->
+            <input type="text" id="buscar-informacao" placeholder="Buscar..." class="form-control" aria-label="Small"
                 aria-describedby="inputGroup-sizing-sm">
         </div>
 
         <table class="table">
+            <!--Tabela de listagem-->
             <thead>
                 <tr>
                     <th scope="col">Descrição</th>
@@ -67,7 +63,7 @@
                     <th scope="col">Seleção</th>
                 </tr>
             </thead>
-            <tbody id="myTable">
+            <tbody id="tabela-produtos">
                 @foreach ($produtos as $produto)
                     <tr>
                         <td> <a href="{{ route('produtos.show', $produto->id) }}">{{ $produto->descricao }}</a></td>
@@ -84,21 +80,27 @@
                                     class="btn btn-secondary">Info.</a>
                             </form>
                         </td>
-                        <td><input type="checkbox" name="idProduto" class="idProduto" value="{{ $produto->id }}">
+                        <td><input type="checkbox" name="idProduto" class="id-produto"
+                                value="{{ $produto->id }}">
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
 
-        <!-- Button trigger modal -->
+        <!-- Abir modal cadastrar produto -->
         <button type="button" class="btn btn-success cadastrar" data-toggle="modal" data-target="#exampleModal"
             title="Cadastrar produto">
             Cadastrar
         </button>
 
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        <!-- Excluir selecão em massa -->
+        <button type="button" class="btn btn-danger excluir-itens" style="display:none">Excluir itens
+            selecionados</button>
+
+
+        <!-- Modal com formulário p/ cadastro -->
+        <div class="modal fade" id="modal-produtos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -135,18 +137,18 @@
             </div>
         </div>
     </div>
+
     <script src="{{ asset('site/jquery.js') }}"></script>
     <script src="{{ asset('site/bootstrap.js') }}"></script>
 
-
     <script>
         $(document).ready(function() {
-            $(".cadastrar").click(function() {
-                $('#exampleModal').modal('show')
+            $(".cadastrar").click(function() { //Abrir modal
+                $('#modal-produtos').modal('show')
             });
 
-            $(".close-modal").click(function() {
-                $('#exampleModal').modal('hide')
+            $(".close-modal").click(function() { //Fechar modal
+                $('#modal-produtos').modal('hide')
             });
 
             const themeSwitch = document.querySelector('input');
@@ -156,29 +158,29 @@
             });
         });
 
-        $("#myInput").on("keyup", function() {
+        $("#buscar-informacao").on("keyup", function() { //Filtro de busca
             var value = $(this).val().toLowerCase();
-            $("#myTable tr").filter(function() {
+            $("#tabela-produtos tr").filter(function() {
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });
 
         var valores = [];
 
-        $(".idProduto").change(function() {
-            $(".excluirItens").removeAttr('style');
+        $(".id-produto").change(function() { //Capturar ID's dos itens selecionados 
+            $(".excluir-itens").removeAttr('style');
 
             if ($(this).is(':checked')) {
                 valores.push($(this).closest('tr').find('input[type=checkbox]').val());
                 console.log(valores);
             } else {
-                valores.pop($('.idProduto').val());
+                valores.pop($('.id-produto').val());
                 console.log(valores);
             }
 
         })
 
-        $(".excluirItens").click(function() {
+        $(".excluir-itens").click(function() { //Ajax exclusão dos itens
             if (confirm("Deseja realmente excluir o produtos selecionados ?")) {
 
                 $.ajax({
