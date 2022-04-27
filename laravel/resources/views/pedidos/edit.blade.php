@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Editar cliente</title>
+    <title>Editar pedido</title>
 
     <link rel="stylesheet" href="{{ asset('site/style.css') }}">
 </head>
@@ -52,10 +52,14 @@
                     </select>
                 </div><br />
                 <div class="form-group">
-                    <label for="formGroupExampleInput2">Produto</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput2" name="produto"
-                        placeholder="Digite o produto" value="{{ $pedido->produto }}" required><br />
-                </div>
+                    <label for="formGroupExampleInput">Produto</label><br />
+                    <select class="form-select" aria-label="Default select example" name="produto" required>
+                        <option selected></option>
+                        @foreach ($produtos as $produto)
+                            <option value="{{ $produto->id }}">{{ $produto->descricao }}</option>
+                        @endforeach
+                    </select>
+                </div><br />
 
                 <div class="form-group">
                     <label for="formGroupExampleInput2">Número</label>

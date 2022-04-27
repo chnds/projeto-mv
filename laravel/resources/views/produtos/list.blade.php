@@ -69,7 +69,7 @@
             <tbody id="myTable">
                 @foreach ($produtos as $produto)
                     <tr>
-                        <td>{{ $produto->descricao }}</td>
+                        <td> <a href="{{route('produtos.show',$produto->id)}}">{{ $produto->descricao }}</a></td>
                         <td>R${{ $produto->valor }}</td>
                         <td>
                             <form action="{{ route('produtos.destroy', $produto->id) }}" method="POST">

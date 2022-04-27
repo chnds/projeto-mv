@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Pedido;
 use App\Models\cliente;
+use App\Models\produto;
 
 class PedidosController extends Controller
 {
@@ -16,10 +17,11 @@ class PedidosController extends Controller
     public function index()
     {
         $data['clientes'] = cliente::all();
+        $data['produtos'] = produto::all();
 
         $data['pedidos'] = pedido::join('clientes', 'clientes.id', '=', 'pedidos.cliente')
-              ->get(['pedidos.*','clientes.nome']);
-
+            ->join('produtos', 'produtos.id', '=', 'pedidos.produto')
+            ->get(['pedidos.*','clientes.nome','produtos.descricao']);
         return view('pedidos.list', $data);
     }
 
@@ -31,7 +33,6 @@ class PedidosController extends Controller
     public function create()
     {
         return view('pedidos.create');
-
     }
 
     /**
@@ -46,7 +47,7 @@ class PedidosController extends Controller
             'cliente' => 'required',
             'produto' => 'required',
             'numero' => 'required',
-            'quantidade' => 'required',
+            'quantidade' => 'required', 
         ]);
 
         $pedido = new pedido;
@@ -82,9 +83,10 @@ class PedidosController extends Controller
     public function edit($id)
     {
         $clientes = cliente::all();
+        $produtos = produto::all();
         $pedido = pedido::find($id);
         
-        return view('pedidos.edit', compact('pedido','clientes'));
+        return view('pedidos.edit', compact('pedido','clientes','produtos'));
     }
 
     /**
@@ -96,6 +98,7 @@ class PedidosController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $request->validate([
             'cliente' => 'required',
             'produto' => 'required',

@@ -69,15 +69,12 @@
             <tbody id="myTable">
                 @foreach ($pedidos as $pedido)
                     <tr>
-
                         <td>
-
-                            {{ $pedido->nome }} <a class="btn"
-                                href="{{ route('clientes.show', $pedido->cliente) }}"><i
-                                    class="fas fa-info-circle fa-xs"></i></a>
-
+                        {{ $pedido->nome }} <a class="btn"href="{{ route('clientes.show', $pedido->cliente) }}"><i class="fas fa-info-circle fa-xs"></i></a>
                         </td>
-                        <td>{{ $pedido->produto }}</td>
+                        <td>
+                            {{ $pedido->descricao }} <a class="btn"href="{{ route('produtos.show', $pedido->produto) }}"><i class="fas fa-info-circle fa-xs"></i></a>
+                        </td>
                         <td>{{ $pedido->numero }}</td>
                         <td>{{ $pedido->quantidade }}</td>
                         <td>{{ $pedido->status }}</td>
@@ -125,10 +122,14 @@
                                 </select>
                             </div><br />
                             <div class="form-group">
-                                <label for="formGroupExampleInput2">Produto</label>
-                                <input type="text" class="form-control" id="formGroupExampleInput2" name="produto"
-                                    placeholder="Digite o nome do produto" required><br />
-                            </div>
+                                <label for="formGroupExampleInput">Produto</label><br />
+                                <select class="form-select" aria-label="Default select example" name="produto">
+                                    <option selected>Selecione o produto</option>
+                                    @foreach ($produtos as $produto)
+                                        <option value="{{ $produto->id }}">{{ $produto->descricao }}</option>
+                                    @endforeach
+                                </select>
+                            </div><br />
                             <div class="form-group">
                                 <label for="formGroupExampleInput2">Número</label>
                                 <input type="text" class="form-control" id="formGroupExampleInput2" name="numero"
