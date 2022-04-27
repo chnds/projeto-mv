@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Listagem de clientes</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
@@ -67,12 +68,13 @@
                     <th scope="col">CPF</th>
                     <th scope="col">E-mail</th>
                     <th scope="col">Ações</th>
+                    <th scope="col">Seleção</th>
                 </tr>
             </thead>
             <tbody id="myTable">
                 @foreach ($clientes as $cliente)
                     <tr>
-                        <td><a href="{{route('clientes.show',$cliente->id)}}">{{ $cliente->nome }}</a></td>
+                        <td><a href="{{ route('clientes.show', $cliente->id) }}">{{ $cliente->nome }}</a></td>
                         <td>{{ $cliente->cpf }}</td>
                         <td>{{ $cliente->email }}</td>
                         <td>
@@ -86,9 +88,13 @@
                                     class="btn btn-secondary">Info.</a>
                             </form>
                         </td>
+                        <td><input type="checkbox" name="idCliente" class="idCliente"
+                                value="{{ $cliente->id }}">
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
+
         </table>
 
         <!-- Button trigger modal -->
@@ -96,6 +102,8 @@
             title="Cadastrar cliente">
             Cadastrar
         </button>
+        <button type="button" class="btn btn-danger excluirItens" style="display:none">Excluir itens
+            selecionados</button>
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -104,11 +112,12 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Cadastrar cliente</h5>
-                        <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="btn close close-modal" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <form action="{{ route('clientes.store') }}" method="POST">
+                        <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
                         <div class="modal-body">
                             @csrf
                             <div class="form-group">
@@ -163,6 +172,44 @@
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
             });
+
+            var valores = [];
+
+            $(".idCliente").change(function() {
+                $(".excluirItens").removeAttr('style');
+
+                if ($(this).is(':checked')) {
+                    valores.push($(this).closest('tr').find('input[type=checkbox]').val());
+                    console.log(valores);
+                } else {
+                    valores.pop($('.idCliente').val());
+                    console.log(valores);
+                }
+
+            })
+
+            $(".excluirItens").click(function() {
+                if (confirm("Deseja realmente excluir o clientes selecionados ?")) {
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/excluirClientes',
+                        dataType: 'json',
+                        data: {
+                            valores,
+                            _token: $('#token').val(),
+                        },
+                        success: function(data) {
+                            alert('Clientes excluídos com sucesso');
+                            location.reload();
+                        },
+                        error: function(data) {
+                            alert('Houve um erro com a sua solicitação');
+                        }
+                    });
+                }
+            });
+
         });
     </script>
 </body>

@@ -132,4 +132,16 @@ class PedidosController extends Controller
         pedido::destroy($id);
         return redirect()->route('pedidos.index')->with('msg','O pedido foi excluído com sucesso.');
     }
+
+    public function excluirPedidos(request $request)
+    {
+        foreach($request->valores as $valor){
+            pedido::destroy($valor);
+        }
+
+        return response()->json([
+            'message' => 'Pedidos excluídos com sucesso',
+          ]);
+          
+    }
 }

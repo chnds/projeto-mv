@@ -64,16 +64,21 @@
                     <th scope="col">Quantidade</th>
                     <th scope="col">Status</th>
                     <th scope="col">Ações</th>
+                    <th scope="col">Seleção</th>
                 </tr>
             </thead>
             <tbody id="myTable">
                 @foreach ($pedidos as $pedido)
                     <tr>
                         <td>
-                        {{ $pedido->nome }} <a class="btn"href="{{ route('clientes.show', $pedido->cliente) }}"><i class="fas fa-info-circle fa-xs"></i></a>
+                            {{ $pedido->nome }} <a class="btn"
+                                href="{{ route('clientes.show', $pedido->cliente) }}"><i
+                                    class="fas fa-info-circle fa-xs"></i></a>
                         </td>
                         <td>
-                            {{ $pedido->descricao }} <a class="btn"href="{{ route('produtos.show', $pedido->produto) }}"><i class="fas fa-info-circle fa-xs"></i></a>
+                            {{ $pedido->descricao }} <a class="btn"
+                                href="{{ route('produtos.show', $pedido->produto) }}"><i
+                                    class="fas fa-info-circle fa-xs"></i></a>
                         </td>
                         <td>{{ $pedido->numero }}</td>
                         <td>{{ $pedido->quantidade }}</td>
@@ -88,6 +93,9 @@
                                     class="btn btn-secondary">Info.</a>
                             </form>
                         </td>
+                        <td><input type="checkbox" name="idPedido" class="idPedido"
+                                value="{{ $pedido->id }}">
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -98,6 +106,9 @@
             Cadastrar
         </button>
 
+        <button type="button" class="btn btn-danger excluirItens" style="display:none">Excluir itens
+            selecionados</button>
+
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
@@ -105,11 +116,12 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Cadastrar pedido</h5>
-                        <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="btn close close-modal" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <form action="{{ route('pedidos.store') }}" method="POST">
+                        <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
                         <div class="modal-body">
                             @csrf
                             <div class="form-group">
@@ -181,6 +193,43 @@
 
             themeSwitch.addEventListener('change', () => {
                 document.body.classList.toggle('dark-theme');
+            });
+
+            var valores = [];
+
+            $(".idPedido").change(function() {
+                $(".excluirItens").removeAttr('style');
+
+                if ($(this).is(':checked')) {
+                    valores.push($(this).closest('tr').find('input[type=checkbox]').val());
+                    console.log(valores);
+                } else {
+                    valores.pop($('.idPedido').val());
+                    console.log(valores);
+                }
+
+            })
+
+            $(".excluirItens").click(function() {
+                if (confirm("Deseja realmente excluir o pedidos selecionados ?")) {
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/excluirPedidos',
+                        dataType: 'json',
+                        data: {
+                            valores,
+                            _token: $('#token').val(),
+                        },
+                        success: function(data) {
+                            alert('Pedidos excluídos com sucesso');
+                            location.reload();
+                        },
+                        error: function(data) {
+                            alert('Houve um erro com a sua solicitação');
+                        }
+                    });
+                }
             });
         });
     </script>

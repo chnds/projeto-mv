@@ -109,4 +109,16 @@ class ProdutosController extends Controller
         return redirect()->route('produtos.index')
         ->with('success','Produto excluído com sucesso');
     }
+
+    public function excluirClientes(request $request)
+    {
+        foreach($request->valores as $valor){
+            produto::destroy($valor);
+        }
+
+        return response()->json([
+            'message' => 'Produtos excluídos com sucesso',
+          ]);
+          
+    }
 }

@@ -114,4 +114,16 @@ class ClientesController extends Controller
         cliente::destroy($id);
         return redirect()->route('clientes.index')->with('msg','O cliente foi excluído com sucesso.');
     }
+
+    public function excluirClientes(request $request)
+    {
+        foreach($request->valores as $valor){
+            cliente::destroy($valor);
+        }
+
+        return response()->json([
+            'message' => 'Clientes excluídos com sucesso',
+          ]);
+          
+    }
 }
