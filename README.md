@@ -1,6 +1,6 @@
-Passo 1: Execute o comando php artisan make:seed.
+Passo 1: Execute os comandos php artisan migrate e php artisan make:seed.
 
-Passo 2: Login
+Passo 2: 
  
 Usuário: teste@teste.com
 Senha: 12345678
