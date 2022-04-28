@@ -1,3 +1,8 @@
+Informações: 
+Banco de dados utilizado: Sqlite.
+CRUD com resource(Produtos/Clientes/Pedidos).
+Exclusão em massa com Jquery/Ajax.
+
 Passo 1: Execute os comandos 'php artisan migrate" e "php artisan make:seed".
 
 passo 2: Execute o comando "php artisan serve" na pasta /laravel para inciar a aplicação no servidor local.
