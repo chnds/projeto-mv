@@ -1,6 +1,6 @@
-Passo 1: Execute os comandos php artisan migrate e php artisan make:seed.
+Passo 1: Execute os comandos 'php artisan migrate" e "php artisan make:seed".
 
-passo 2: Execute o comando php artisan na pasta /laravel para inciar a aplicação no servidor local.
+passo 2: Execute o comando "php artisan serve" na pasta /laravel para inciar a aplicação no servidor local.
 
 Passo 2: login: teste@teste.com / Senha: 12345678
 
