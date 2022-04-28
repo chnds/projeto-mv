@@ -2,6 +2,7 @@ Informações:
 Banco de dados utilizado: Sqlite.
 CRUD com resource(Produtos/Clientes/Pedidos).
 Exclusão em massa com Jquery/Ajax.
+Front-end com bootstrap responsivo. 
 
 Passo 1: Execute os comandos 'php artisan migrate" e "php artisan make:seed".
 
